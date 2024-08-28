@@ -1,20 +1,16 @@
-import { createRouter, createMemoryHistory } from "vue-router";
-import Home from "../views/HomeView.vue";
-import Trip from "../views/TripView.vue";
+import { createRouter, createWebHistory } from "vue-router";
+
+import TripList from "../components/TripList.vue";
+import TripForm from "../components/TripForm.vue";
+import TripComponent from "../components/TripComponent.vue";
 
 const routes = [
   //path per la lista dei viaggi
-  {
-    path: "/",
-    name: "Home",
-    component: Home,
-  },
+
   //path per la visualizzazione del viaggio singolo
-  {
-    path: "/trip",
-    name: "Trip",
-    component: Trip,
-  },
+  { path: "/", name: "TripList", component: TripList },
+  { path: "/create", name: "TripForm", component: TripForm },
+  { path: "/details/:id", name: "TripComponent", component: TripComponent },
 
   //path per la visualizzazione delle info per la tappa del viaggio singolo
 
@@ -22,7 +18,7 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createMemoryHistory(),
+  history: createWebHistory(),
   routes,
 });
 
