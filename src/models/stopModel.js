@@ -4,6 +4,8 @@ export default class Stop {
     title,
     description,
     date,
+    timeStart,
+    timeEnd,
     imgs = [],
     notes,
     rate,
@@ -16,6 +18,8 @@ export default class Stop {
     this.title = title;
     this.description = description;
     this.date = date;
+    this.timeStart = timeStart;
+    this.timeEnd = timeEnd;
     this.imgs = imgs;
     this.notes = notes;
     this.rate = rate;

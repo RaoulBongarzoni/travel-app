@@ -1,10 +1,11 @@
 <script>
+import { RouterLink } from "vue-router";
+
 export default {
   name: "TripForm",
   props: {
-    trip: {
-      type: Object,
-      default: null,
+    id: {
+      type: String,
     },
   },
 
@@ -15,26 +16,47 @@ export default {
         description: "",
         startDate: "",
         endDate: "",
-        //stops: [],
+        stops: [],
       },
     };
   },
 
   computed: {
     isEdit() {
-      return !!this.trip;
+      return !!this.id;
     },
   },
 
   methods: {
+    goBack() {
+      this.$router.go(-1);
+    },
+    loadTripData() {
+      if (this.isEdit) {
+        const trip = this.$store.getters.getTripById(this.id);
+
+        if (trip) {
+          this.tripData = { ...trip };
+        }
+        console.log("data di questo viaggio: " + this.trip);
+      }
+    },
     submitTripForm() {
       if (this.isEdit) {
-        this.$store.commit("editTrip", { ...this.tripData, id: this.trip.id });
+        this.$store.commit("editTrip", { id: this.id, ...this.tripData });
       } else {
-        this.$store.commit("addTrip", { ...this.tripData, id: Date.now() });
+        this.$store.commit("addTrip", {
+          ...this.tripData,
+          id: Date.now(),
+        });
       }
       this.$router.push({ name: "TripList" }); // Dopo il salvataggio, torna alla lista viaggi
     },
+  },
+
+  mounted() {
+    console.log(this.isEdit);
+    this.loadTripData();
   },
 };
 </script>
@@ -49,7 +71,7 @@ export default {
       <div>
         <label for="descrizione">Descrizione</label>
         <textarea
-          v-model="tripData.desctiption"
+          v-model="tripData.description"
           id="descrizione"
           required
         ></textarea>
@@ -68,8 +90,7 @@ export default {
         <input type="date" v-model="tripData.endDate" id="dataFine" required />
       </div>
 
-      <div>aggiunta di tappe</div>
-      /
+      <button class="btn-danger" @click="goBack">back</button>
 
       <button type="submit">
         {{ isEdit ? "Salva Modifiche" : "Crea Viaggio" }}
