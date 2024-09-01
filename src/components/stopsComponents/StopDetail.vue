@@ -38,9 +38,10 @@ export default {
   <div>
     <h3>{{ stop.title }}</h3>
     <p>{{ stop.description }}</p>
-    <!--     <p><strong>Date:</strong> {{ stop.date }}</p>
-    <p><strong>Food:</strong> {{ stop.food }}</p>
-    <p><strong>Curiosities:</strong> {{ stop.curiosities }}</p> -->
+    <p><strong>Date:</strong> {{ stop.date }}</p>
+    <p><strong> Ora Inizio:</strong> {{ stop.startTime }}</p>
+    <p><strong> Ora Fine:</strong> {{ stop.endTime }}</p>
+    <p><strong>Curiosities:</strong> {{ stop.curiosities }}</p>
 
     <RouterLink
       :to="{
@@ -48,9 +49,11 @@ export default {
         params: { tripId: trip.id, stopId: stop.id },
       }"
     >
-      <p>Edit Stop</p>
+      <button class="btn btn-primary mx-2">Edit Stop</button>
     </RouterLink>
-    <button @click="goBack">indietro</button>
-    <button @click="deleteStop">Delete Stop</button>
+    <button @click="goBack" class="btn btn-danger mx-2">indietro</button>
+    <button @click="deleteStop" class="btn btn-warning mx-2">
+      Delete Stop
+    </button>
   </div>
 </template>

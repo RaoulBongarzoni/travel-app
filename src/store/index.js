@@ -109,6 +109,7 @@ const store = createStore({
   },
 
   getters: {
+    /* getters per facilitare la ripresa di trip e fermate */
     getTripById: (state) => (id) => {
       console.log("Getting trip for ID:", id);
       console.log("lista dei viaggi", state.trips);
@@ -122,6 +123,14 @@ const store = createStore({
       return null;
     },
     allTrips: (state) => state.trips,
+
+    allTripStops: (state) => (tripId) => {
+      var trip = state.trips.find((trip) => trip.id == tripId);
+      if (trip) {
+        return trip.stops;
+      }
+      return null;
+    },
   },
 });
 
